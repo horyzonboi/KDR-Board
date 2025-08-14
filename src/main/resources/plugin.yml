@@ -1,0 +1,5 @@
+name: ScoreBoard
+version: '1.0'
+main: net.horyzon.scoreBoard.ScoreBoard
+api-version: '1.20'
+authors: [ horyzonboi ]
