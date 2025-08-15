@@ -6,15 +6,22 @@ import org.bukkit.entity.Player;
 import org.bukkit.scoreboard.*;
 
 public class StatBoard {
-    public StatBoard(Player player) {
+    public StatBoard(Player player, ConfigManager statConfig) {
         ScoreboardManager sbManager = Bukkit.getScoreboardManager();
         Scoreboard KDABoard = sbManager.getNewScoreboard();
 
-        Objective objective = KDABoard.registerNewObjective("test", "dummy", "PLAYER STATS");
-        objective.setDisplaySlot(DisplaySlot.SIDEBAR);
-        objective.getScore(ChatColor.YELLOW + "Kills: 0").setScore(2);
-        objective.getScore(ChatColor.RED + "Deaths: 0").setScore(1);
+        String uuid = player.getUniqueId().toString();
+        int kills = statConfig.getConfig().getInt(uuid + ".Kills", 0);
+        int deaths = statConfig.getConfig().getInt(uuid + ".Deaths", 0);
 
+        Objective objective = KDABoard.registerNewObjective("test", "dummy", ChatColor.GOLD + "PLAYER STATS");
+        objective.setDisplaySlot(DisplaySlot.SIDEBAR);
+
+        Score killScore = objective.getScore(ChatColor.YELLOW + "Kills: " + kills);
+        killScore.setScore(2);
+
+        Score deathScore = objective.getScore(ChatColor.RED + "Deaths: " + deaths);
+        deathScore.setScore(1);
 
         player.setScoreboard(KDABoard);
     }

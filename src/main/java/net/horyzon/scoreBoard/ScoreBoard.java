@@ -10,7 +10,7 @@ public final class ScoreBoard extends JavaPlugin {
     @Override
     public void onEnable() {
         statConfig = new ConfigManager(this, "PlayerData");
-        getServer().getPluginManager().registerEvents(new onJoinListener(), this);
+        getServer().getPluginManager().registerEvents(new onJoinListener(this), this);
         getServer().getPluginManager().registerEvents(new statListener(this), this);
     }
     public ConfigManager getStatConfig() {

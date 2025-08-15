@@ -2,6 +2,7 @@ package net.horyzon.scoreBoard.listenersForScoreBoard;
 
 import net.horyzon.scoreBoard.ConfigManager;
 import net.horyzon.scoreBoard.ScoreBoard;
+import net.horyzon.scoreBoard.StatBoard;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -27,11 +28,13 @@ public class statListener implements Listener {
         String victimPath = TOTD.getUniqueId() + ".Deaths";
         int currentDeaths = setStatConfig.getConfig().getInt(victimPath,0);
         setStatConfig.getConfig().set(victimPath, currentDeaths + 1);
+        new StatBoard(TOTD, setStatConfig);
 
         if (killer != null) {
             String killerPath = killer.getUniqueId() + ".Kills";
             int currentKills = setStatConfig.getConfig().getInt(killerPath, 0);
             setStatConfig.getConfig().set(killerPath, currentKills + 1);
+            new StatBoard(killer, setStatConfig);
         }
         Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> {
             try {
