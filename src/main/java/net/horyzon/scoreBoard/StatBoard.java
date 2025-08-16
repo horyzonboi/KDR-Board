@@ -13,7 +13,9 @@ public class StatBoard {
         String uuid = player.getUniqueId().toString();
         int kills = statConfig.getConfig().getInt(uuid + ".Kills", 0);
         int deaths = statConfig.getConfig().getInt(uuid + ".Deaths", 0);
-        String title = scoreBoardModifier.getConfig().getString("title");
+        String title = ChatColor.translateAlternateColorCodes('&',
+                scoreBoardModifier.getConfig().getString("title", "&7&lDefault Title"));
+
 
 
         ScoreboardManager sbManager = Bukkit.getScoreboardManager();

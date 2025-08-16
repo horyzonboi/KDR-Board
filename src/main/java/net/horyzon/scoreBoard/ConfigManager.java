@@ -28,6 +28,7 @@ public class ConfigManager {
         }
     }
 
+
     public File getFile() {
         return this.file;
     }

@@ -12,10 +12,12 @@ import org.bukkit.event.entity.PlayerDeathEvent;
 public class statListener implements Listener {
     public final ScoreBoard plugin;
     private final ConfigManager setStatConfig;
+    private final ConfigManager setScoreboardModifier;
 
     public statListener(ScoreBoard plugin) {
         this.setStatConfig = plugin.getStatConfig();
         this.plugin = plugin;
+        this.setScoreboardModifier = plugin.getScoreBoardModifier();
     }
 
     @EventHandler
@@ -28,13 +30,13 @@ public class statListener implements Listener {
         String victimPath = TOTD.getUniqueId() + ".Deaths";
         int currentDeaths = setStatConfig.getConfig().getInt(victimPath,0);
         setStatConfig.getConfig().set(victimPath, currentDeaths + 1);
-        new StatBoard(TOTD, setStatConfig);
+        new StatBoard(TOTD, setStatConfig, setScoreboardModifier);
 
         if (killer != null) {
             String killerPath = killer.getUniqueId() + ".Kills";
             int currentKills = setStatConfig.getConfig().getInt(killerPath, 0);
             setStatConfig.getConfig().set(killerPath, currentKills + 1);
-            new StatBoard(killer, setStatConfig);
+            new StatBoard(killer, setStatConfig, setScoreboardModifier);
         }
         Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> {
             try {

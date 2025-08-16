@@ -16,6 +16,6 @@ public class onJoinListener implements Listener {
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
-        new StatBoard(player, plugin.getStatConfig());
+        new StatBoard(player, plugin.getStatConfig(), plugin.getScoreBoardModifier());
     }
 }
