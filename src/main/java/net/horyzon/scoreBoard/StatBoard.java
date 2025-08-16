@@ -14,14 +14,24 @@ public class StatBoard {
         int kills = statConfig.getConfig().getInt(uuid + ".Kills", 0);
         int deaths = statConfig.getConfig().getInt(uuid + ".Deaths", 0);
 
-        Objective objective = KDABoard.registerNewObjective("test", "dummy", ChatColor.GOLD + "PLAYER STATS");
+        Objective objective = KDABoard.registerNewObjective("test", "dummy", ChatColor.WHITE.toString() + ChatColor.BOLD + " Player Stats ");
         objective.setDisplaySlot(DisplaySlot.SIDEBAR);
 
-        Score killScore = objective.getScore(ChatColor.YELLOW + "Kills: " + kills);
+        Score line = objective.getScore(ChatColor.DARK_GRAY.toString() + ChatColor.STRIKETHROUGH + "------------------");
+        line.setScore(5);
+
+        Score header = objective.getScore(" ");
+        header.setScore(4);
+
+        Score killScore = objective.getScore(ChatColor.GOLD + "Kills: " + kills);
         killScore.setScore(2);
 
-        Score deathScore = objective.getScore(ChatColor.RED + "Deaths: " + deaths);
+        Score deathScore = objective.getScore(ChatColor.DARK_RED + "Deaths: " + deaths);
         deathScore.setScore(1);
+
+        Score footer = objective.getScore(ChatColor.DARK_GRAY + " ");
+        footer.setScore(0);
+
 
         player.setScoreboard(KDABoard);
     }
