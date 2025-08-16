@@ -6,15 +6,20 @@ import org.bukkit.entity.Player;
 import org.bukkit.scoreboard.*;
 
 public class StatBoard {
-    public StatBoard(Player player, ConfigManager statConfig) {
-        ScoreboardManager sbManager = Bukkit.getScoreboardManager();
-        Scoreboard KDABoard = sbManager.getNewScoreboard();
+    private final ConfigManager scoreBoardModifier;
+    public StatBoard(Player player, ConfigManager statConfig,ConfigManager scoreBoardModifier) {
+        this.scoreBoardModifier = scoreBoardModifier;
 
         String uuid = player.getUniqueId().toString();
         int kills = statConfig.getConfig().getInt(uuid + ".Kills", 0);
         int deaths = statConfig.getConfig().getInt(uuid + ".Deaths", 0);
+        String title = scoreBoardModifier.getConfig().getString("title");
 
-        Objective objective = KDABoard.registerNewObjective("test", "dummy", ChatColor.WHITE.toString() + ChatColor.BOLD + " Player Stats ");
+
+        ScoreboardManager sbManager = Bukkit.getScoreboardManager();
+        Scoreboard KDABoard = sbManager.getNewScoreboard();
+
+        Objective objective = KDABoard.registerNewObjective("test", "dummy", title);
         objective.setDisplaySlot(DisplaySlot.SIDEBAR);
 
         Score line = objective.getScore(ChatColor.DARK_GRAY.toString() + ChatColor.STRIKETHROUGH + "---------------");
@@ -29,7 +34,13 @@ public class StatBoard {
         Score deathScore = objective.getScore(ChatColor.GOLD + "Deaths: " + ChatColor.WHITE + deaths);
         deathScore.setScore(2);
 
-        float KDR = (float) kills / deaths;
+        //Sorry for terrible code I dont do with ternary operators
+        float KDR;
+        if (deaths == 0) {
+            KDR = kills;
+        } else {
+            KDR = (float) kills / deaths;
+        }
         String KDRString = String.format("%.2f", KDR);
         Score KDRScore = objective.getScore("KDR: " + KDRString);
         KDRScore.setScore(1);
