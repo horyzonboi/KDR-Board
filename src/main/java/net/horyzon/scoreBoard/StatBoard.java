@@ -17,17 +17,22 @@ public class StatBoard {
         Objective objective = KDABoard.registerNewObjective("test", "dummy", ChatColor.WHITE.toString() + ChatColor.BOLD + " Player Stats ");
         objective.setDisplaySlot(DisplaySlot.SIDEBAR);
 
-        Score line = objective.getScore(ChatColor.DARK_GRAY.toString() + ChatColor.STRIKETHROUGH + "------------------");
+        Score line = objective.getScore(ChatColor.DARK_GRAY.toString() + ChatColor.STRIKETHROUGH + "---------------");
         line.setScore(5);
 
         Score header = objective.getScore(" ");
         header.setScore(4);
 
-        Score killScore = objective.getScore(ChatColor.GOLD + "Kills: " + kills);
-        killScore.setScore(2);
+        Score killScore = objective.getScore(ChatColor.RED + "Kills: " + ChatColor.DARK_RED + kills);
+        killScore.setScore(3);
 
-        Score deathScore = objective.getScore(ChatColor.DARK_RED + "Deaths: " + deaths);
-        deathScore.setScore(1);
+        Score deathScore = objective.getScore(ChatColor.GOLD + "Deaths: " + ChatColor.WHITE + deaths);
+        deathScore.setScore(2);
+
+        float KDR = (float) kills / deaths;
+        String KDRString = String.format("%.2f", KDR);
+        Score KDRScore = objective.getScore("KDR: " + KDRString);
+        KDRScore.setScore(1);
 
         Score footer = objective.getScore(ChatColor.DARK_GRAY + " ");
         footer.setScore(0);
