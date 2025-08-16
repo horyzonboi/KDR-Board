@@ -26,6 +26,7 @@ public class StatBoard {
         Score killScore = objective.getScore(ChatColor.RED + "Kills: " + ChatColor.DARK_RED + kills);
         killScore.setScore(3);
 
+
         Score deathScore = objective.getScore(ChatColor.GOLD + "Deaths: " + ChatColor.WHITE + deaths);
         deathScore.setScore(2);
 
